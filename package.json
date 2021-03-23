@@ -109,7 +109,7 @@
 		"concat-map": "0.0.1",
 		"copyfiles": "^2.4.0",
 		"cropperjs": "^1.5.9",
-		"cross-env": "^7.0.2",
+		"cross-env": "^7.0.3",
 		"css-loader": "^3.6.0",
 		"date-fns": "^2.16.1",
 		"diff": "^4.0.2",
