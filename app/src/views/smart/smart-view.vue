@@ -7,7 +7,7 @@
 		</template>
 	</v-info>
 
-	<div v-else class="private-view" :class="{ theme }">
+	<div v-else class="smart-view" :class="{ theme }">
 		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen }">
 			<module-bar />
 			<div class="module-nav alt-colors">
@@ -18,8 +18,10 @@
 				</div>
 			</div>
 		</aside>
+
 		<div class="content" ref="contentEl">
 			<header-bar
+				class="contentheader"
 				show-sidebar-toggle
 				:title="title"
 				@toggle:sidebar="sidebarOpen = !sidebarOpen"
@@ -33,24 +35,25 @@
 			<main>
 				<slot />
 			</main>
+
+			<aside
+				role="contentinfo"
+				class="sidebar alt-colors"
+				aria-label="Module Sidebar"
+				:class="{ 'is-open': sidebarOpen }"
+				@click="openSidebar"
+			>
+				<div class="flex-container">
+					<sidebar-detail-group :sidebar-open="sidebarOpen">
+						<slot name="sidebar" />
+					</sidebar-detail-group>
+
+					<div class="spacer" />
+
+					<notifications-preview v-model="notificationsPreviewActive" :sidebar-open="sidebarOpen" />
+				</div>
+			</aside>
 		</div>
-		<aside
-			role="contentinfo"
-			class="sidebar alt-colors"
-			aria-label="Module Sidebar"
-			:class="{ 'is-open': sidebarOpen }"
-			@click="openSidebar"
-		>
-			<div class="flex-container">
-				<sidebar-detail-group :sidebar-open="sidebarOpen">
-					<slot name="sidebar" />
-				</sidebar-detail-group>
-
-				<div class="spacer" />
-
-				<notifications-preview v-model="notificationsPreviewActive" :sidebar-open="sidebarOpen" />
-			</div>
-		</aside>
 
 		<v-overlay class="nav-overlay" :active="navOpen" @click="navOpen = false" />
 		<v-overlay class="sidebar-overlay" :active="sidebarOpen" @click="sidebarOpen = false" />
@@ -149,7 +152,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import '@/styles/mixins/breakpoint';
 
-.private-view {
+.smart-view {
 	--content-padding: 12px;
 	--content-padding-bottom: 60px;
 
@@ -229,6 +232,9 @@ export default defineComponent({
 		font-size: 15px;
 		line-height: 24px;
 
+		.contentheader {
+			width: 100%;
+		}
 		main {
 			display: contents;
 		}
@@ -244,8 +250,7 @@ export default defineComponent({
 	}
 
 	.sidebar {
-		position: fixed;
-		top: 0;
+		position: relative;
 		right: 0;
 		z-index: 30;
 		width: 284px;

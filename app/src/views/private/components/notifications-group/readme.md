@@ -1,5 +1,7 @@
 # Notifications Group
 
+Directly used by VIEW.... NOT SURE HOW THIS LOOKS LIKE / WHEN DISPLAYED; uses Notification-Item
+
 Renders a notification item for every notification in the notificationsStore queue
 
 ## Usage
@@ -9,13 +11,17 @@ Renders a notification item for every notification in the notificationsStore que
 ```
 
 ## Props
+
 n/a
 
 ## Events
+
 n/a
 
 ## Slots
+
 n/a
 
 ## CSS Variables
+
 n/a
