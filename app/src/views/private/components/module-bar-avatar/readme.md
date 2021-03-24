@@ -2,6 +2,8 @@
 
 Renders the avatar and shows the sign out button on hover.
 
+![](readme.md_2021-03-24-00-46-13.png)
+
 ## Usage
 
 ```html
@@ -9,13 +11,17 @@ Renders the avatar and shows the sign out button on hover.
 ```
 
 ## Props
+
 n/a
 
 ## Events
+
 n/a
 
 ## Slots
+
 n/a
 
 ## CSS Variables
+
 n/a
