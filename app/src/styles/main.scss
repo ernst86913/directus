@@ -2,6 +2,7 @@
 @import 'fonts';
 @import 'themes/dark';
 @import 'themes/light';
+@import 'themes/smart';
 @import 'variables';
 @import 'tooltip';
 @import 'type-styles';
@@ -18,6 +19,9 @@ body.dark {
 }
 
 body.auto {
+
+	@include smart;
+	/*
 	@media (prefers-color-scheme: dark) {
 		@include dark;
 	}
@@ -25,4 +29,6 @@ body.auto {
 	@media (prefers-color-scheme: light) {
 		@include light;
 	}
+	*/
+
 }
