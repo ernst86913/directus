@@ -2,6 +2,120 @@
 
 // Smart Mode
 @mixin smart {
+	// Standard Overrides Menu Bars ---------------------------------------------------------
+	--header-bar-height: 72px;
+	--module-background: #051e34;
+	--module-background-light: #152e44;
+
+	.header-bar {
+		margin: 0;
+		top: 0;
+		padding: 0 var(--content-padding);
+		height: var(--header-bar-height);
+		background-color: var(--module-background);
+		
+		.type-title {color: var(--white);}
+		.headline {display: none;}
+		.search-input {background-color: var(--white);}
+	}
+	.navigation .module-bar {
+		.module-bar-logo {
+			height: var(--header-bar-height);
+			min-height: var(--header-bar-height);
+			background: var(--module-background);
+			.v-progress-linear {display: none;}
+		}
+		.v-button {
+			--v-button-background-color-activated: var(--primary);
+			--v-button-color-activated: var(--white);
+		}
+	}
+	.navigation .module-nav {
+		.project-info {
+			height: var(--header-bar-height);
+			background-color: var(--module-background-light);
+			color: var(--foreground-inverted);
+
+			.name {margin-left: 0; font-size: 17px;}
+			.latency-indicator {display: none;}
+		}
+		.module-nav-content {
+			background-color: var(--background-normal-alt);
+			--v-list-item-background-color-hover: var(--background-normal);
+			--v-list-item-background-color-active: var(--background-normal);
+			--v-list-item-color-active: var(--primary);
+			height: calc(100% - var(--header-bar-height));
+		}
+		.v-list-item:not(.dense).active {
+			background-color: var(--v-list-item-background-color-active) !important;
+			color: var(--v-list-item-color-active) !important;
+		}
+	}
+
+	// Standard Overrides Content ------------------------------------------------------------
+	.private-view .content {
+		overflow: hidden;
+		--content-padding-bottom: 80px;
+		--content-padding: 54px;
+	
+		main {
+			height: calc(100% - var(--header-bar-height));
+			overflow: auto;
+			display: block;
+
+		}
+	}
+
+	// Standard Overrides List Layouts -------------------------------------------------------
+	.private-view .content {
+		.layout {
+			--layout-offset-top: 0px;
+		}
+		.v-table {
+			--content-padding: 40px;
+			font-size: 14px;
+			.v-checkbox .checkbox {
+				--v-icon-color: var(--border-subdued);
+			}
+			.table-row.clickable:not(.subdued):hover .cell .v-checkbox .checkbox {
+				--v-icon-color: var(--background-normal-alt);
+			}
+			.v-checkbox:not(:disabled):not(.indeterminate).checked .checkbox {
+				--v-icon-color: var(--v-checkbox-color) !important;
+			}
+		}
+		.v-table > table {
+			margin-top: calc(var(--content-padding) - 10px);
+		}
+	}
+
+	// Standard Overrides Forms --------------------------------------------------------------
+	.content, .private-view .content, .v-drawer .content {
+		--form-column-max-width: 600px;
+		--input-height: 46px;
+		--form-vertical-gap: 32px;
+		--form-horizontal-gap: 48px;
+
+		.v-divider {
+			padding-bottom: 16px;
+		}
+		.v-form.with-fill {
+			grid-template-columns: [start] minmax(0, var(--form-column-max-width)) [half] minmax(0, var(--form-column-max-width)) [full];
+		}
+		.v-form .type-label {
+			font-size: 13px;
+			line-height: 14px;
+		}
+		.v-form .label.edited::before {
+			top: 4px;
+			left: -14px;
+			width: 8px;
+			height: 8px;
+			background-color: var(--primary);
+		}
+	}
+
+	// Smart Theme Variables ----------------------------------------------------------------
 	--border-normal: #D3DAE4;
 	--border-normal-alt: #A2B5CD;
 	--border-subdued: #F0F4F9;
