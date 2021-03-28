@@ -69,7 +69,7 @@ export default defineComponent({
 				dialogActive.value = false;
 				newFolderName.value = null;
 
-				router.push({ path: '/files', query: { folder: newFolder.data.data.id } });
+				router.push({ path: '/smart', query: { folder: newFolder.data.data.id } });
 			} catch (err) {
 				unexpectedError(err);
 			} finally {

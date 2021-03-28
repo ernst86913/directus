@@ -1,5 +1,5 @@
 <template>
-	<smart-view :title="$t('page_not_found')">
+	<private-view moduleTitle="Files" :title="$t('page_not_found')">
 		<template #navigation>
 			<files-navigation />
 		</template>
@@ -9,7 +9,7 @@
 				{{ $t('page_not_found_body') }}
 			</v-info>
 		</div>
-	</smart-view>
+	</private-view>
 </template>
 
 <script lang="ts">

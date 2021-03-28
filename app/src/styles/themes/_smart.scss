@@ -1,24 +1,29 @@
 /* stylelint-disable */
+@import '../mixins/breakpoint.scss';
 
 // Smart Mode
 @mixin smart {
-	// Standard Overrides Menu Bars ---------------------------------------------------------
+	// Standard Overrides Menu and Side Bars ---------------------------------------------------------
 	--header-bar-height: 72px;
 	--module-background: #051e34;
 	--module-background-light: #152e44;
 
-	.header-bar {
+	.private-view .header-bar {
 		margin: 0;
 		top: 0;
-		padding: 0 var(--content-padding);
 		height: var(--header-bar-height);
+		@include breakpoint(medium) {
+			padding: 0 var(--content-padding);
+		}
 		background-color: var(--module-background);
 		
-		.type-title {color: var(--white);}
+		.type-title {font-size: 20px; color: var(--white);}
+		.header-icon {--v-button-height: 50px;}
 		.headline {display: none;}
 		.search-input {background-color: var(--white);}
+		.actions.active {background-color: var(--module-background);}
 	}
-	.navigation .module-bar {
+	.private-view .navigation .module-bar {
 		.module-bar-logo {
 			height: var(--header-bar-height);
 			min-height: var(--header-bar-height);
@@ -29,20 +34,23 @@
 			--v-button-background-color-activated: var(--primary);
 			--v-button-color-activated: var(--white);
 		}
+		.module-bar-avatar {display: none;}
 	}
-	.navigation .module-nav {
-		.project-info {
+
+	.private-view .navigation .module-nav {
+		.project-info, .module-nav-header {
 			height: var(--header-bar-height);
 			background-color: var(--module-background-light);
 			color: var(--foreground-inverted);
 
-			.name {margin-left: 0; font-size: 17px;}
+			.name {margin-left: 0; font-size: 16px;}
 			.latency-indicator {display: none;}
 		}
 		.module-nav-content {
+			font-size: 13px;
 			background-color: var(--background-normal-alt);
 			--v-list-item-background-color-hover: var(--background-normal);
-			--v-list-item-background-color-active: var(--background-normal);
+			--v-list-item-background-color-active: var(--background-highlight);
 			--v-list-item-color-active: var(--primary);
 			height: calc(100% - var(--header-bar-height));
 		}
@@ -51,12 +59,57 @@
 			color: var(--v-list-item-color-active) !important;
 		}
 	}
+	.private-view .sidebar  {
+		font-size: 13px;
+
+		.sidebar-header .module-bar-avatar .v-avatar.large {
+			height: var(--header-bar-height);
+			width: 64px;
+			--v-icon-size: 30px;
+		}
+		.flex-container {
+			height: calc(100% - var(--header-bar-height));
+			.sidebar-detail {
+				.toggle {transition: height var(--medium) var(--transition);}
+				&.open .toggle {height: 48px;}
+				.close { display: none; }
+			}
+		}
+		.v-divider {
+			margin-bottom: 8px;
+			padding-bottom: 0;
+		}
+		.comment-item {
+			margin-bottom: 8px;
+			.content {
+				font-size: 11px;
+			}
+		}
+		.revision-item {
+			margin-bottom: 8px;
+		}
+	}
+	.private-view .sidebar.is-open .sidebar-button {
+		display: none;
+	}
+	.notifications-group {
+		@include breakpoint(medium) {
+			bottom: 10px;
+		}
+	}
+
+	// Standard Overrides Overlay Dialogs ----------------------------------------------------
+	.vue-portal-target .v-card {
+		.v-card-title.type-label {font-size: 22px;}
+	}
 
 	// Standard Overrides Content ------------------------------------------------------------
-	.private-view .content {
+	.private-view > .content {
 		overflow: hidden;
 		--content-padding-bottom: 80px;
-		--content-padding: 54px;
+		@include breakpoint(medium) {
+			--content-padding: 54px;
+		}
 	
 		main {
 			height: calc(100% - var(--header-bar-height));
@@ -67,13 +120,17 @@
 	}
 
 	// Standard Overrides List Layouts -------------------------------------------------------
-	.private-view .content {
+	.private-view > .content {
 		.layout {
 			--layout-offset-top: 0px;
 		}
+		.table {
+			max-width: 1200px;
+		}
 		.v-table {
-			--content-padding: 40px;
 			font-size: 14px;
+			@include breakpoint(medium) { --content-padding: 40px;	}
+
 			.v-checkbox .checkbox {
 				--v-icon-color: var(--border-subdued);
 			}
@@ -83,21 +140,28 @@
 			.v-checkbox:not(:disabled):not(.indeterminate).checked .checkbox {
 				--v-icon-color: var(--v-checkbox-color) !important;
 			}
+
+			// TODO - hide select column in smaller resolutions; directly in table component???
+			//.cell.select {visibility: hidden; width: 0; position: absolute;}
+			//@include breakpoint(medium) {.cell.select {visibility: visible;}}
 		}
 		.v-table > table {
-			margin-top: calc(var(--content-padding) - 10px);
+			margin-top: 10px;
+			@include breakpoint(medium) { margin-top: calc(var(--content-padding) - 10px); }
 		}
 	}
 
 	// Standard Overrides Forms --------------------------------------------------------------
-	.content, .private-view .content, .v-drawer .content {
+	.content, .private-view > .content, .v-drawer > .content {
 		--form-column-max-width: 600px;
 		--input-height: 46px;
+		--input-padding: 10px;
 		--form-vertical-gap: 32px;
 		--form-horizontal-gap: 48px;
 
 		.v-divider {
 			padding-bottom: 16px;
+			span.wrapper .v-icon { margin-right: 10px; }
 		}
 		.v-form.with-fill {
 			grid-template-columns: [start] minmax(0, var(--form-column-max-width)) [half] minmax(0, var(--form-column-max-width)) [full];
@@ -107,8 +171,8 @@
 			line-height: 14px;
 		}
 		.v-form .label.edited::before {
-			top: 4px;
-			left: -14px;
+			top: 3px;
+			left: -10px;
 			width: 8px;
 			height: 8px;
 			background-color: var(--primary);

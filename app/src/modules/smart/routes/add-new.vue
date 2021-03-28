@@ -27,7 +27,7 @@ export default defineComponent({
 		return { close };
 
 		function close() {
-			router.push({ path: '/files', query: props.preset });
+			router.push({ path: '/smart', query: props.preset });
 		}
 	},
 });

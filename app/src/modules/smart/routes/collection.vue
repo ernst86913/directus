@@ -1,5 +1,5 @@
 <template>
-	<smart-view :title="title" :class="{ dragging }">
+	<private-view moduleTitle="Files" :title="title" :class="{ dragging }">
 		<template #headline v-if="breadcrumb">
 			<v-breadcrumb :items="breadcrumb" />
 		</template>
@@ -88,7 +88,7 @@
 				rounded
 				icon
 				class="add-new"
-				:to="{ path: '/files/+', query: queryFilters }"
+				:to="{ path: '/smart/+', query: queryFilters }"
 				v-tooltip.bottom="createAllowed ? $t('create_item') : $t('not_allowed')"
 				:disabled="createAllowed === false"
 			>
@@ -128,7 +128,7 @@
 					{{ $t('no_files_copy') }}
 
 					<template #append>
-						<v-button :to="{ path: '/files/+', query: queryFilters }">{{ $t('add_file') }}</v-button>
+						<v-button :to="{ path: '/smart/+', query: queryFilters }">{{ $t('add_file') }}</v-button>
 					</template>
 				</v-info>
 			</template>
@@ -157,7 +157,7 @@
 			<div class="drop-border bottom" />
 			<div class="drop-border left" />
 		</template>
-	</smart-view>
+	</private-view>
 </template>
 
 <script lang="ts">
@@ -386,7 +386,7 @@ export default defineComponent({
 					return [
 						{
 							name: i18n.t('file_library'),
-							to: `/files`,
+							to: `/smart`,
 						},
 					];
 				}
@@ -418,7 +418,7 @@ export default defineComponent({
 					selection.value = [];
 
 					if (selectedFolder.value) {
-						router.push(`/files?folder=${selectedFolder.value}`);
+						router.push(`/smart?folder=${selectedFolder.value}`);
 					}
 
 					await Vue.nextTick();

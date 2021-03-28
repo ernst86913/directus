@@ -1,6 +1,6 @@
 <template>
 	<files-not-found v-if="!loading && !item" />
-	<smart-view v-else :title="loading || !item ? $t('loading') : item.title">
+	<private-view v-else moduleTitle="Files" :title="loading || !item ? $t('loading') : item.title">
 		<template #title-outer:prepend>
 			<v-button class="header-icon" rounded icon secondary exact :to="to">
 				<v-icon name="arrow_back" />
@@ -171,7 +171,7 @@
 		</template>
 
 		<replace-file v-model="replaceFileDialogActive" @replaced="refresh" :file="item" />
-	</smart-view>
+	</private-view>
 </template>
 
 <script lang="ts">
@@ -288,8 +288,8 @@ export default defineComponent({
 		];
 
 		const to = computed(() => {
-			if (item.value && item.value?.folder) return `/files?folder=${item.value.folder}`;
-			else return '/files';
+			if (item.value && item.value?.folder) return `/smart?folder=${item.value.folder}`;
+			else return '/smart';
 		});
 
 		const confirmLeave = ref(false);
@@ -355,7 +355,7 @@ export default defineComponent({
 					return [
 						{
 							name: i18n.t('file_library'),
-							to: '/files',
+							to: '/smart',
 						},
 					];
 				}
@@ -364,7 +364,7 @@ export default defineComponent({
 					{
 						name: i18n.t('file_library'),
 						to: {
-							path: `/files/`,
+							path: `/smart/`,
 							query: {
 								folder: item?.value?.folder,
 							},
@@ -396,7 +396,7 @@ export default defineComponent({
 
 		async function saveAsCopyAndNavigate() {
 			const newPrimaryKey = await saveAsCopy();
-			if (newPrimaryKey) router.push(`/files/${newPrimaryKey}`);
+			if (newPrimaryKey) router.push(`/smart/${newPrimaryKey}`);
 		}
 
 		async function deleteAndQuit() {

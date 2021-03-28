@@ -265,9 +265,9 @@ export default defineComponent({
 
 			const folderLink = computed(() => {
 				if (folder.value === null) {
-					return `/files`;
+					return `/smart`;
 				}
-				return `/files/?folder=${folder.value.id}`;
+				return `/smart/?folder=${folder.value.id}`;
 			});
 
 			watch(() => props.file, fetchFolder, { immediate: true });
