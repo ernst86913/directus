@@ -11,7 +11,11 @@
 		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen }">
 			<module-bar />
 			<div class="module-nav alt-colors">
-				<project-info />
+
+				<!-- Smart Change -->
+				<project-info v-if="!moduleTitle" />
+				<module-nav-header v-else :moduleTitle="moduleTitle" />
+				<!-- end -->
 
 				<div class="module-nav-content">
 					<slot name="navigation" />
@@ -41,6 +45,11 @@
 			:class="{ 'is-open': sidebarOpen }"
 			@click="openSidebar"
 		>
+
+			<!-- Smart Change -->
+			<sidebar-header />
+			<!-- end -->
+
 			<div class="flex-container">
 				<sidebar-detail-group :sidebar-open="sidebarOpen">
 					<slot name="sidebar" />
@@ -62,6 +71,10 @@
 
 <script lang="ts">
 import { defineComponent, ref, provide, toRefs, computed, onUpdated, nextTick } from '@vue/composition-api';
+/* Smart Change */
+import ModuleNavHeader from './components/_smart/module-nav-header/';
+import SidebarHeader from './components/_smart/sidebar-header/';
+/* end */
 import ModuleBar from './components/module-bar/';
 import SidebarDetailGroup from './components/sidebar-detail-group/';
 import HeaderBar from './components/header-bar';
@@ -75,6 +88,8 @@ import router from '@/router';
 
 export default defineComponent({
 	components: {
+		ModuleNavHeader,
+		SidebarHeader,
 		ModuleBar,
 		SidebarDetailGroup,
 		HeaderBar,
@@ -89,6 +104,13 @@ export default defineComponent({
 			type: String,
 			default: null,
 		},
+		/* Smart Change */
+		/* TODO - remove - handle via App Store */
+		moduleTitle: {
+			type: String,
+			default: null,
+		},
+		/* end */
 	},
 	setup() {
 		const navOpen = ref(false);

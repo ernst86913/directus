@@ -2,7 +2,7 @@
 	<div>
 		<v-list-item
 			v-if="folder.children === undefined"
-			:to="`/files?folder=${folder.id}`"
+			:to="`/smart?folder=${folder.id}`"
 			:active="currentFolder === folder.id"
 			exact
 			@contextmenu.native.prevent.stop="$refs.contextMenu.activate"
@@ -15,7 +15,7 @@
 
 		<v-list-group
 			v-else
-			:to="`/files?folder=${folder.id}`"
+			:to="`/smart?folder=${folder.id}`"
 			:active="currentFolder === folder.id"
 			:value="folder.id"
 			scope="files-navigation"
@@ -265,9 +265,9 @@ export default defineComponent({
 					await api.delete(`/folders/${props.folder.id}`);
 
 					if (newParent) {
-						router.push(`/files?folder=${newParent}`);
+						router.push(`/smart?folder=${newParent}`);
 					} else {
-						router.push('/files');
+						router.push('/smart');
 					}
 
 					deleteActive.value = false;
