@@ -56,6 +56,7 @@ export default defineComponent({
 		width: 50px;
 		height: var(--header-bar-height);
 		color: var(--foreground-subdued);;
+		--sidebar-detail-color-active: var(--white);
 		cursor: pointer;
 		transition: opacity var(--fast) var(--transition), color var(--fast) var(--transition);
 
@@ -72,7 +73,7 @@ export default defineComponent({
 		left: -1px;
 		top: 8px;
 		bottom: 8px;
-		width: 2px;
+		width: 3px;
 		background-color: var(--module-icon);
 		opacity: 0.25;
 		content: "";

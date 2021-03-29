@@ -8,8 +8,10 @@
 	</v-info>
 
 	<div v-else class="private-view" :class="{ theme }">
-		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen }">
-			<module-bar />
+		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen, 'is-collapse': navCollapse }" > <!-- Smart Change -->
+
+			<module-bar :navCollapse="navCollapse" @toggle:navCollapse="navCollapse = !navCollapse" />  <!-- Smart Change -->
+
 			<div class="module-nav alt-colors">
 
 				<!-- Smart Change -->
@@ -46,9 +48,7 @@
 			@click="openSidebar"
 		>
 
-			<!-- Smart Change -->
-			<sidebar-header />
-			<!-- end -->
+			<sidebar-header />  <!-- Smart Change -->
 
 			<div class="flex-container">
 				<sidebar-detail-group :sidebar-open="sidebarOpen">
@@ -71,10 +71,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, provide, toRefs, computed, onUpdated, nextTick } from '@vue/composition-api';
-/* Smart Change */
-import ModuleNavHeader from './components/_smart/module-nav-header/';
-import SidebarHeader from './components/_smart/sidebar-header/';
-/* end */
+import ModuleNavHeader from './components/_smart/module-nav-header/';  // Smart Change
+import SidebarHeader from './components/_smart/sidebar-header/';   // Smart Change
 import ModuleBar from './components/module-bar/';
 import SidebarDetailGroup from './components/sidebar-detail-group/';
 import HeaderBar from './components/header-bar';
@@ -128,6 +126,7 @@ export default defineComponent({
 		const notificationsPreviewActive = ref(false);
 
 		const { sidebarOpen } = toRefs(appStore.state);
+		const { navCollapse } = toRefs(appStore.state);  // Smart Change
 
 		const theme = computed(() => {
 			return userStore.state.currentUser?.theme || 'auto';
@@ -142,6 +141,7 @@ export default defineComponent({
 		useTitle(title);
 
 		return {
+			navCollapse,  // Smart Change
 			navOpen,
 			contentEl,
 			theme,
@@ -224,6 +224,34 @@ export default defineComponent({
 			position: relative;
 			transform: none;
 		}
+
+		/* Smart Change */
+		.module-bar {
+			z-index: 20;
+		}
+		.module-nav {
+			z-index: 10;
+			position: fixed;
+			left: 64px;
+			transition: transform var(--slow) var(--transition);
+			transform: translateX(-100%);
+		}
+
+		@include breakpoint(medium) {
+			&:not(.is-collapse) {
+				.module-nav {
+					transform: none;
+					position: relative;
+					left:0;
+				}
+			}
+			&.is-collapse:hover {
+				.module-nav {
+					transform: none;
+				}
+			}
+		}
+		/* end */
 	}
 
 	.content {
