@@ -9,13 +9,15 @@
 			<div class="title" v-show="sidebarOpen">
 				{{ title }}
 			</div>
-			<div class="icon" v-if="!close">
+			<!-- <div class="icon" v-if="!close">    Smart Change -->
+			<div class="icon">
 				<v-icon class="expand-icon" :name="active ? 'expand_less' : 'expand_more'" outline />
 			</div>
 		</button>
+		<!-- Smart Change 
 		<div v-if="close" v-show="sidebarOpen" class="close" @click="sidebarOpen = false">
 			<v-icon name="close" />
-		</div>
+		</div> -->
 		<transition-expand class="scroll-container">
 			<div v-show="active">
 				<div class="content">

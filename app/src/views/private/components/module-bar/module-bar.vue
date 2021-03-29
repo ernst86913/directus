@@ -26,19 +26,20 @@
 		</div>
 
 		<!-- Smart Change -->
-		<div class="toggle" @click="$emit('toggle:navCollapse')" @mouseover.prevent.stop="" @mouseenter.prevent.stop="" @mouseleave.prevent.stop="" >
+		<div class="toggle" @click="navCollapse = !navCollapse" >
 			<v-button icon x-large >
 				<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
 			</v-button>
 		</div>
 		<!-- <module-bar-avatar /> -->
 		<!-- end -->
-		
+
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, computed } from '@vue/composition-api';
+import { defineComponent, Ref, computed, toRefs } from '@vue/composition-api';  // Smart Change
+import { useAppStore } from '@/stores';  // Smart Change
 
 import { getModules } from '@/modules/';
 import ModuleBarLogo from '../module-bar-logo/';
@@ -51,15 +52,12 @@ export default defineComponent({
 		ModuleBarLogo,
 		ModuleBarAvatar,
 	},
-	/* Smart Change */
-	props: {
-		navCollapse: {
-			type: Boolean,
-			default: false,
-		},
-	},
-	/* end */
 	setup() {
+		/* Smart Change */
+		const appStore = useAppStore();
+		const { navCollapse } = toRefs(appStore.state);
+		/* end */
+
 		const userStore = useUserStore();
 		const modules = getModules();
 
@@ -105,7 +103,7 @@ export default defineComponent({
 			}
 			return registeredModules;
 		});
-		return { _modules };
+		return { _modules, navCollapse };  // Smart Change
 	},
 });
 </script>
