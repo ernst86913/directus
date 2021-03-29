@@ -1,7 +1,7 @@
 <template>
 	<div class="sidebar-header">
 		<div v-show="sidebarOpen" class="close" @click="sidebarOpen = false">
-			<v-icon class="large" name="chevron_right" />
+			<v-icon name="arrow_forward_ios" />
 		</div>
 		<div class="spacer" />
 		<module-bar-avatar />

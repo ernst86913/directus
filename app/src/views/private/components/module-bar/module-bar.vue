@@ -28,12 +28,12 @@
 		<!-- Smart Change -->
 		<div class="toggle" @click="$emit('toggle:navCollapse')" @mouseover.prevent.stop="" @mouseenter.prevent.stop="" @mouseleave.prevent.stop="" >
 			<v-button icon x-large >
-				<v-icon class="large" :name="navCollapse ? 'chevron_right' : 'chevron_left'" outline/>
+				<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
 			</v-button>
 		</div>
-
 		<!-- <module-bar-avatar /> -->
 		<!-- end -->
+		
 	</div>
 </template>
 
