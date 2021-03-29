@@ -162,9 +162,10 @@
 			padding-bottom: 16px;
 			span.wrapper .v-icon { margin-right: 10px; }
 		}
-		.v-form.with-fill {
+		// TODO - lets wait and see what the intention of this additional column is
+		/*.v-form.with-fill {
 			grid-template-columns: [start] minmax(0, var(--form-column-max-width)) [half] minmax(0, var(--form-column-max-width)) [full];
-		}
+		}*/
 		.v-form .type-label {
 			font-size: 13px;
 			line-height: 14px;
