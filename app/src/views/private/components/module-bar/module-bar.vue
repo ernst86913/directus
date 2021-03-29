@@ -1,6 +1,8 @@
 <template>
 	<div class="module-bar">
+		
 		<module-bar-logo />
+		
 		<div class="modules">
 			<v-button
 				v-for="module in _modules"
@@ -22,7 +24,16 @@
 				<v-icon :name="module.icon" outline />
 			</v-button>
 		</div>
-		<module-bar-avatar />
+
+		<!-- Smart Change -->
+		<div class="toggle" @click="$emit('toggle:navCollapse')" @mouseover.prevent.stop="" @mouseenter.prevent.stop="" @mouseleave.prevent.stop="" >
+			<v-button icon x-large >
+				<v-icon class="large" :name="navCollapse ? 'chevron_right' : 'chevron_left'" outline/>
+			</v-button>
+		</div>
+
+		<!-- <module-bar-avatar /> -->
+		<!-- end -->
 	</div>
 </template>
 
@@ -40,6 +51,14 @@ export default defineComponent({
 		ModuleBarLogo,
 		ModuleBarAvatar,
 	},
+	/* Smart Change */
+	props: {
+		navCollapse: {
+			type: Boolean,
+			default: false,
+		},
+	},
+	/* end */
 	setup() {
 		const userStore = useUserStore();
 		const modules = getModules();
@@ -101,6 +120,8 @@ body {
 </style>
 
 <style lang="scss" scoped>
+@import '@/styles/mixins/breakpoint'; // Smart Change
+
 .module-bar {
 	display: flex;
 	flex-direction: column;
@@ -122,5 +143,26 @@ body {
 		--v-button-background-color-hover: var(--module-background);
 		--v-button-background-color-activated: var(--module-background-alt);
 	}
+
+	/* Smart Change */
+	.toggle {
+		display: none;
+		width: 64px;
+		height: 64px;
+		@include breakpoint(medium) {
+			display: inline-flex;
+		}
+	}
+	.toggle::after {
+    	position: absolute;
+		bottom: 63px;
+    	left: 6px;
+    	width: 51px;
+    	height: 2px;
+    	background-color: var(--module-icon);
+    	opacity: 0.25;
+    	content: "";
+	}
+	/*end*/
 }
 </style>
