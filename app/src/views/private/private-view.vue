@@ -226,7 +226,6 @@ export default defineComponent({
 		}
 
 		/* Smart Change */
-		width: 284px;
 		&.is-collapse {width: 64px;}
 		.module-bar {
 			z-index: 20;
