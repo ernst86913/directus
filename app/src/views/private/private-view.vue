@@ -83,6 +83,7 @@ import NotificationsPreview from './components/notifications-preview/';
 import NotificationDialogs from './components/notification-dialogs/';
 import { useUserStore, useAppStore } from '@/stores';
 import router from '@/router';
+import useTitle from '@/composables/use-title';
 
 export default defineComponent({
 	components: {
@@ -110,7 +111,8 @@ export default defineComponent({
 		},
 		/* end */
 	},
-	setup() {
+	setup(props) {
+		const { title } = toRefs(props);
 		const navOpen = ref(false);
 		const contentEl = ref<Element>();
 		const userStore = useUserStore();
@@ -134,19 +136,9 @@ export default defineComponent({
 
 		router.afterEach(async (to, from) => {
 			contentEl.value?.scrollTo({ top: 0 });
-
-			// await nextTick();
-
-			// const hash = to.hash;
-
-			// if (hash) {
-			// 	const linkedEl = document.querySelector(hash) as HTMLElement;
-
-			// 	if (linkedEl) {
-			// 		contentEl.value?.scrollTo({ top: linkedEl.offsetTop - 100, behavior: 'smooth' });
-			// 	}
-			// }
 		});
+
+		useTitle(title);
 
 		return {
 			navCollapse,  // Smart Change
