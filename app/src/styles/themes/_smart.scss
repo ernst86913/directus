@@ -117,6 +117,9 @@
 			display: block;
 
 		}
+
+		.loading .loading-indicator .v-progress-linear { --v-progress-linear-color: var(--primary); }
+		.loading .loading-text {	display: none; }
 	}
 
 	// Standard Overrides List Layouts -------------------------------------------------------
