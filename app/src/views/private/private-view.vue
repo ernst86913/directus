@@ -226,19 +226,20 @@ export default defineComponent({
 		}
 
 		/* Smart Change */
-		&.is-collapse {width: 64px;}
-		.module-bar {
-			z-index: 20;
-		}
-		.module-nav {
-			z-index: 10;
-			position: fixed;
-			left: 64px;
-			transition: transform var(--slow) var(--transition);
-			transform: translateX(-100%);
-		}
-
 		@include breakpoint(medium) {
+
+			&.is-collapse {width: 64px;}
+			.module-bar {
+				z-index: 20;
+			}
+			.module-nav {
+				z-index: 10;
+				position: fixed;
+				left: 64px;
+				transition: transform var(--slow) var(--transition);
+				transform: translateX(-100%);
+			}
+
 			&:not(.is-collapse) {
 				.module-nav {
 					transform: none;
