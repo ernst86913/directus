@@ -66,6 +66,7 @@ export default defineComponent({
 
 		&:hover {
 			color: var(--sidebar-detail-color-active);
+		    background-color: var(--module-background-light);
 		}
 	}
 	.close::after {
