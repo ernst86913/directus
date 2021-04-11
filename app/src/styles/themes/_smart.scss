@@ -16,25 +16,47 @@
 		}
 		background-color: var(--module-background);
 		
+		.nav-toggle.v-button .button {
+			margin-left: -7px;
+			background: none;
+			border: none;
+		}
 		.type-title {font-size: 20px; color: var(--white);}
 		.header-icon {--v-button-height: 50px;}
 		.headline {display: none;}
 		.search-input {background-color: var(--white);}
-		.actions.active {background-color: var(--module-background);}
+		.actions.active {
+			background-color: var(--module-background);
+
+			// Fix directus issue with i-button when re-sizing window
+			@include breakpoint(medium) {
+				.action-buttons .sidebar-toggle {
+					display: none;
+				}
+			}
+		}	
 	}
-	.private-view .navigation .module-bar {
-		.module-bar-logo {
-			height: var(--header-bar-height);
-			min-height: var(--header-bar-height);
-			background: var(--module-background);
-			.v-progress-linear {display: none;}
+	.private-view .navigation {
+		.module-bar {
+			.module-bar-logo {
+				height: var(--header-bar-height);
+				min-height: var(--header-bar-height);
+				background: var(--module-background);
+				.v-progress-linear {display: none;}
+			}
+			.v-button {
+				--v-button-background-color-activated: var(--background-normal-alt);
+				--v-button-color-activated: var(--primary);
+				--v-button-background-color-hover: var(--module-background-light);
+			}
 		}
-		.v-button {
-			--v-button-background-color-activated: var(--background-normal-alt);
-			--v-button-color-activated: var(--primary);
-			--v-button-background-color-hover: var(--module-background-light);
+		&.is-open {
+			@include breakpoint(small-max) {
+				width: 85%;
+				max-width: 500px;
+				.module-nav { width: 100%; }
+			}
 		}
-		.module-bar-avatar {display: none;}
 	}
 
 	.private-view .navigation .module-nav {
@@ -131,9 +153,10 @@
 			max-width: 1200px;
 		}
 		.v-table {
-			font-size: 14px;
+			font-size: 13px;
 			@include breakpoint(medium) { --content-padding: 40px;	}
 
+			.table-header .cell { font-size: inherit; }
 			.v-checkbox .checkbox {
 				--v-icon-color: var(--border-subdued);
 			}
@@ -166,10 +189,10 @@
 			padding-bottom: 16px;
 			span.wrapper .v-icon { margin-right: 10px; }
 		}
-		// TODO - lets wait and see what the intention of this additional column is
-		/*.v-form.with-fill {
+		// TODO - lets wait and see what the intention of this additional column is.... might need to change it
+		.v-form.with-fill {
 			grid-template-columns: [start] minmax(0, var(--form-column-max-width)) [half] minmax(0, var(--form-column-max-width)) [full];
-		}*/
+		}
 		.v-form .type-label {
 			font-size: 13px;
 			line-height: 14px;

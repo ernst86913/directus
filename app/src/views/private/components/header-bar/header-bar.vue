@@ -1,7 +1,7 @@
 <template>
 	<header class="header-bar" ref="headerEl" :class="{ collapsed: collapsed }">
-		<v-button secondary class="nav-toggle" icon rounded @click="$emit('primary')" v-if="$listeners.primary">
-			<v-icon :name="primaryActionIcon" />
+		<v-button primary class="nav-toggle" icon rounded @click="$emit('primary')" v-if="$listeners.primary">  <!-- Smart Change -->
+			<v-icon :name="primaryActionIcon" class="large" /> <!-- Smart Change -->
 		</v-button>
 
 		<div class="title-outer-prepend" v-if="$scopedSlots['title-outer:prepend']">

@@ -26,12 +26,14 @@
 		</div>
 
 		<!-- Smart Change -->
-		<div class="toggle" @click="navCollapse = !navCollapse" >
+		<div class="toggle" @click="navCollapse = !navCollapse; $emit('click')" >
 			<v-button icon x-large >
 				<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
 			</v-button>
 		</div>
-		<!-- <module-bar-avatar /> -->
+		<div class="avatar">
+			<module-bar-avatar />
+		</div>
 		<!-- end -->
 
 	</div>
@@ -143,15 +145,12 @@ body {
 	}
 
 	/* Smart Change */
-	.toggle {
-		display: none;
+	.toggle, .avatar {
+		display: inline-flex;
 		width: 64px;
 		height: 64px;
-		@include breakpoint(medium) {
-			display: inline-flex;
-		}
 	}
-	.toggle::after {
+	.toggle::after, .avatar::after {
     	position: absolute;
 		bottom: 63px;
     	left: 6px;
@@ -160,6 +159,17 @@ body {
     	background-color: var(--module-icon);
     	opacity: 0.25;
     	content: "";
+	}
+	.toggle {
+		@include breakpoint(small-max) {
+			display: none;
+		}
+
+	}
+	.avatar {
+		@include breakpoint(medium) {
+			display: none;
+		}
 	}
 	/*end*/
 }

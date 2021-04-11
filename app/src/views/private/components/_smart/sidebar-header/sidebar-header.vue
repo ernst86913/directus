@@ -26,6 +26,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import '@/styles/mixins/breakpoint';
+
 .sidebar.is-open .sidebar-header {
 	.spacer {
 		flex: 1;
@@ -63,21 +65,23 @@ export default defineComponent({
 		.v-icon {
 			pointer-events: none;
 		}
-
 		&:hover {
 			color: var(--sidebar-detail-color-active);
 		    background-color: var(--module-background-light);
 		}
+		//@include breakpoint(medium-max) { display: none; }
 	}
-	.close::after {
-		position: absolute;
-		left: -1px;
-		top: 8px;
-		bottom: 8px;
-		width: 3px;
-		background-color: var(--module-icon);
-		opacity: 0.25;
-		content: "";
+	@include breakpoint(large) {
+		.close::after {
+			position: absolute;
+			left: -1px;
+			top: 8px;
+			bottom: 8px;
+			width: 3px;
+			background-color: var(--module-icon);
+			opacity: 0.25;
+			content: "";
+		}
 	}
 
 	.spacer {
@@ -89,6 +93,8 @@ export default defineComponent({
 		height: var(--header-bar-height);
 		min-width: 64px;
 		z-index: 100;
+
+		@include breakpoint(small-max) { display: none; }
 	}
 }
 </style>

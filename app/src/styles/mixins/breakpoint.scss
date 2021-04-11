@@ -1,7 +1,10 @@
 $breakpoints: (
 	'small':   (min-width: 600px),
+	'small-max': (max-width: 959px),  /* Smart Change */
 	'medium':  (min-width: 960px),
+	'medium-max':  (max-width: 1259px),  /* Smart Change */
 	'large':   (min-width: 1260px),
+	'large-max':  (max-width: 1899px),  /* Smart Change */
 	'x-large': (min-width: 1900px)
 ) !default;
 

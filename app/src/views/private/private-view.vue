@@ -8,9 +8,10 @@
 	</v-info>
 
 	<div v-else class="private-view" :class="{ theme }">
-		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen, 'is-collapse': navCollapse }" > <!-- Smart Change -->
+		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen, 
+			'is-collapse': navCollapse, 'collapse-prevent-hover': navCollapsePreventHover }" @mouseleave="navCollapsePreventHover = false" >   <!-- Smart Change -->
 
-			<module-bar :navCollapse="navCollapse" @toggle:navCollapse="navCollapse = !navCollapse" />  <!-- Smart Change -->
+			<module-bar @click="navCollapsePreventHoverTimer" />  <!-- Smart Change -->
 
 			<div class="module-nav alt-colors">
 
@@ -84,6 +85,7 @@ import NotificationDialogs from './components/notification-dialogs/';
 import { useUserStore, useAppStore } from '@/stores';
 import router from '@/router';
 import useTitle from '@/composables/use-title';
+import { TIMEOUT } from 'node:dns';
 
 export default defineComponent({
 	components: {
@@ -127,6 +129,8 @@ export default defineComponent({
 
 		const { sidebarOpen } = toRefs(appStore.state);
 		const { navCollapse } = toRefs(appStore.state);  // Smart Change
+		const navCollapsePreventHover = ref(false);  //Smart Change
+		let navCollapseTimeout: any;  //Smart Change
 
 		const theme = computed(() => {
 			return userStore.state.currentUser?.theme || 'auto';
@@ -142,6 +146,9 @@ export default defineComponent({
 
 		return {
 			navCollapse,  // Smart Change
+			navCollapsePreventHover,  // Smart Change
+			navCollapsePreventHoverTimer,  // Smart Change
+			navCollapseTimeout,  // SmartChange
 			navOpen,
 			contentEl,
 			theme,
@@ -156,6 +163,15 @@ export default defineComponent({
 				sidebarOpen.value = true;
 			}
 		}
+
+		/* Smart Change */
+		function navCollapsePreventHoverTimer () {
+			navCollapsePreventHover.value = true;
+			if (navCollapseTimeout) clearTimeout(navCollapseTimeout);
+			navCollapseTimeout = setTimeout (() => { navCollapsePreventHover.value = false; }, 1000);
+		}
+		/* end */
+
 	},
 });
 </script>
@@ -247,7 +263,7 @@ export default defineComponent({
 					left:0;
 				}
 			}
-			&.is-collapse:hover {
+			&:not(.collapse-prevent-hover).is-collapse:hover {
 				.module-nav {
 					transform: none;
 				}
