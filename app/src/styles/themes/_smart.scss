@@ -60,6 +60,7 @@
 	}
 
 	.private-view .navigation .module-nav {
+		width: 280px;
 		.project-info, .module-nav-header {
 			height: var(--header-bar-height);
 			background-color: var(--module-background-light);
@@ -84,6 +85,8 @@
 	.private-view .sidebar  {
 		font-size: 13px;
 
+		&.is-open { flex-basis: 300px; }
+		.flex-container { width: 300px; }
 		.sidebar-header .module-bar-avatar .v-avatar.large {
 			height: var(--header-bar-height);
 			width: 64px;
@@ -185,10 +188,8 @@
 		--form-vertical-gap: 32px;
 		--form-horizontal-gap: 48px;
 
-		.v-divider {
-			padding-bottom: 16px;
-			span.wrapper .v-icon { margin-right: 10px; }
-		}
+		.v-divider span.wrapper .v-icon { margin-right: 10px; }
+		
 		// TODO - lets wait and see what the intention of this additional column is.... might need to change it
 		.v-form.with-fill {
 			grid-template-columns: [start] minmax(0, var(--form-column-max-width)) [half] minmax(0, var(--form-column-max-width)) [full];
