@@ -41,7 +41,8 @@ export default defineComponent({
 }
 .sidebar-header {
 	width: 100%;
-	height: var(--header-bar-height);
+	//height: var(--header-bar-height);
+	height: 64px;
     background-color: var(--module-background);
 	position: relative;
 	display: flex;
