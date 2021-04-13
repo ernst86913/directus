@@ -25,23 +25,15 @@
 			</v-button>
 		</div>
 
-		<!-- Smart Change -->
-		<div class="toggle" @click="navCollapse = !navCollapse; $emit('click')" >
-			<v-button icon x-large >
-				<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
-			</v-button>
-		</div>
 		<div class="avatar">
 			<module-bar-avatar />
 		</div>
-		<!-- end -->
 
 	</div>
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, computed, toRefs } from '@vue/composition-api';  // Smart Change
-import { useAppStore } from '@/stores';  // Smart Change
+import { defineComponent, Ref, computed } from '@vue/composition-api';
 
 import { getModules } from '@/modules/';
 import ModuleBarLogo from '../module-bar-logo/';
@@ -55,10 +47,6 @@ export default defineComponent({
 		ModuleBarAvatar,
 	},
 	setup() {
-		/* Smart Change */
-		const appStore = useAppStore();
-		const { navCollapse } = toRefs(appStore.state);
-		/* end */
 
 		const userStore = useUserStore();
 		const modules = getModules();
@@ -105,7 +93,7 @@ export default defineComponent({
 			}
 			return registeredModules;
 		});
-		return { _modules, navCollapse };  // Smart Change
+		return { _modules }; 
 	},
 });
 </script>
@@ -120,7 +108,6 @@ body {
 </style>
 
 <style lang="scss" scoped>
-@import '@/styles/mixins/breakpoint'; // Smart Change
 
 .module-bar {
 	display: flex;
@@ -144,13 +131,12 @@ body {
 		--v-button-background-color-activated: var(--module-background-alt);
 	}
 
-	/* Smart Change */
-	.toggle, .avatar {
+	.avatar {
 		display: inline-flex;
 		width: 64px;
 		height: 64px;
 	}
-	.toggle::after, .avatar::after {
+	.avatar::after {
     	position: absolute;
 		bottom: 63px;
     	left: 6px;
@@ -160,17 +146,5 @@ body {
     	opacity: 0.25;
     	content: "";
 	}
-	.toggle {
-		@include breakpoint(small-max) {
-			display: none;
-		}
-
-	}
-	.avatar {
-		@include breakpoint(medium) {
-			display: none;
-		}
-	}
-	/*end*/
 }
 </style>

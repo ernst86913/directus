@@ -9,9 +9,9 @@
 
 	<div v-else class="private-view" :class="{ theme }">
 		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen, 
-			'is-collapse': navCollapse, 'collapse-prevent-hover': navCollapsePreventHover }" @mouseleave="navCollapsePreventHover = false" >   <!-- Smart Change -->
+			'is-collapse': navCollapse, 'collapse-prevent-hover': navCollapsePreventHover }" @mouseleave="navCollapsePreventHover=false">   <!-- Smart Change -->
 
-			<module-bar @click="navCollapsePreventHoverTimer" />  <!-- Smart Change -->
+			<module-bar /> 
 
 			<div class="module-nav alt-colors">
 
@@ -22,6 +22,15 @@
 
 				<div class="module-nav-content">
 					<slot name="navigation" />
+
+					<!-- Smart Change -->
+					<div class="navtoggle" @click="navCollapse = !navCollapse; navCollapseToggle()" >
+						<v-button icon >
+							<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
+						</v-button>
+					</div>
+					<!-- end -->
+
 				</div>
 			</div>
 		</aside>
@@ -85,7 +94,6 @@ import NotificationDialogs from './components/notification-dialogs/';
 import { useUserStore, useAppStore } from '@/stores';
 import router from '@/router';
 import useTitle from '@/composables/use-title';
-import { TIMEOUT } from 'node:dns';
 
 export default defineComponent({
 	components: {
@@ -128,7 +136,7 @@ export default defineComponent({
 		const notificationsPreviewActive = ref(false);
 
 		const { sidebarOpen } = toRefs(appStore.state);
-		const { navCollapse } = toRefs(appStore.state);  // Smart Change
+		const navCollapse = ref(false);  // Smart Change
 		const navCollapsePreventHover = ref(false);  //Smart Change
 		let navCollapseTimeout: any;  //Smart Change
 
@@ -147,7 +155,7 @@ export default defineComponent({
 		return {
 			navCollapse,  // Smart Change
 			navCollapsePreventHover,  // Smart Change
-			navCollapsePreventHoverTimer,  // Smart Change
+			navCollapseToggle,  // Smart Change
 			navCollapseTimeout,  // SmartChange
 			navOpen,
 			contentEl,
@@ -165,10 +173,10 @@ export default defineComponent({
 		}
 
 		/* Smart Change */
-		function navCollapsePreventHoverTimer () {
+		function navCollapseToggle () {
 			navCollapsePreventHover.value = true;
 			if (navCollapseTimeout) clearTimeout(navCollapseTimeout);
-			navCollapseTimeout = setTimeout (() => { navCollapsePreventHover.value = false; }, 1000);
+			navCollapseTimeout = setTimeout (() => { navCollapsePreventHover.value = false; }, 60000);  // Prevent re-opening if mouse pointer is not moved
 		}
 		/* end */
 
@@ -234,6 +242,26 @@ export default defineComponent({
 				overflow-x: hidden;
 				overflow-y: auto;
 			}
+
+			/* Smart Change */
+			.navtoggle {
+				--border-radius: 0;
+				--v-button-color: var(--foreground-subdued);
+				//--v-button-color: var(--sidebar-detail-color);
+  				--v-button-background-color: var(--background-normal-alt);
+			   	// --v-button-background-color: var(--primary-10);
+				// --v-button-color: var(--primary);
+				--v-button-background-color-hover: var(--primary-25);
+				--v-button-color-hover: var(--primary);
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				@include breakpoint(small-max) {
+					display: none;
+				}
+			}
+			/* end */
+
 		}
 
 		@include breakpoint(medium) {

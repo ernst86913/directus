@@ -21,7 +21,7 @@ body.dark {
 body.auto {
 
 	/* Smart Change */
-	@include smart;
+	@include light;
 	/*
 	@media (prefers-color-scheme: dark) {
 		@include dark;

@@ -4,18 +4,18 @@
 			<v-icon name="arrow_forward_ios" />
 		</div>
 		<div class="spacer" />
-		<module-bar-avatar />
+		<!-- <module-bar-avatar /> -->
 	</div>
 </template>
 
 <script lang="ts">
 import { defineComponent, toRefs } from '@vue/composition-api';
 import { useAppStore } from '@/stores';
-import ModuleBarAvatar from '../../module-bar-avatar/';
+//import ModuleBarAvatar from '../../module-bar-avatar/';
 
 export default defineComponent({
 	components: {
-		ModuleBarAvatar,
+//		ModuleBarAvatar,
 	},
 	setup() {
 		const appStore = useAppStore();
@@ -32,12 +32,12 @@ export default defineComponent({
 	.spacer {
 		flex: 1;
 	}
-	.module-bar-avatar {
+/*	.module-bar-avatar {
 		flex: 0;
 		position: absolute;
 		right: 0;
 		top: 0;
-	}
+	} */
 }
 .sidebar-header {
 	width: 100%;
@@ -88,6 +88,7 @@ export default defineComponent({
 		flex: 0;
 	}
 
+/*
 	.module-bar-avatar {
 		flex: 1;
 		height: var(--header-bar-height);
@@ -96,5 +97,6 @@ export default defineComponent({
 
 		@include breakpoint(small-max) { display: none; }
 	}
+*/
 }
 </style>
