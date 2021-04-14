@@ -22,16 +22,16 @@
 
 				<div class="module-nav-content">
 					<slot name="navigation" />
-
-					<!-- Smart Change -->
-					<div class="navtoggle" @click="navCollapse = !navCollapse; navCollapseToggle()" >
-						<v-button icon >
-							<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
-						</v-button>
-					</div>
-					<!-- end -->
-
 				</div>
+
+				<!-- Smart Change -->
+				<div class="navtoggle" @click="navCollapse = !navCollapse; navCollapseToggle()" >
+					<v-button icon x-small >
+						<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
+					</v-button>
+				</div>
+				<!-- end -->
+
 			</div>
 		</aside>
 		<div class="content" ref="contentEl">
@@ -238,24 +238,24 @@ export default defineComponent({
 				--v-list-item-background-color-hover: var(--background-normal-alt);
 				--v-list-item-background-color-active: var(--background-normal-alt);
 
-				height: calc(100% - 64px);
+				height: calc(100% - 64px - 38px);  // Smart Change
 				overflow-x: hidden;
 				overflow-y: auto;
 			}
 
 			/* Smart Change */
 			.navtoggle {
-				--border-radius: 0;
-				--v-button-color: var(--foreground-subdued);
-				//--v-button-color: var(--sidebar-detail-color);
-  				--v-button-background-color: var(--background-normal-alt);
-			   	// --v-button-background-color: var(--primary-10);
-				// --v-button-color: var(--primary);
-				--v-button-background-color-hover: var(--primary-25);
-				--v-button-color-hover: var(--primary);
-				position: absolute;
-				right: 0;
-				bottom: 0;
+				height: 38px;
+				.v-button {
+					--border-radius: 0;
+					--v-button-color: var(--foreground-subdued);
+					--v-button-background-color: var(--background-normal-alt);
+					--v-button-background-color-hover: var(--primary-25);
+					--v-button-color-hover: var(--primary);
+					position: absolute;
+					right: 12px;
+					margin: 5px 0;
+				}
 				@include breakpoint(small-max) {
 					display: none;
 				}
