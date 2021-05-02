@@ -8,13 +8,18 @@
 	</v-info>
 
 	<div v-else class="private-view" :class="{ theme }">
-		<aside role="navigation" aria-label="Module Navigation" class="navigation" :class="{ 'is-open': navOpen, 
-			'is-collapse': navCollapse, 'collapse-prevent-hover': navCollapsePreventHover }" @mouseleave="navCollapsePreventHover=false">   <!-- Smart Change -->
+		<aside
+			role="navigation"
+			aria-label="Module Navigation"
+			class="navigation"
+			:class="{ 'is-open': navOpen, 'is-collapse': navCollapse, 'collapse-prevent-hover': navCollapsePreventHover }"
+			@mouseleave="navCollapsePreventHover = false"
+		>
+			<!-- Smart Change -->
 
-			<module-bar /> 
+			<module-bar />
 
 			<div class="module-nav alt-colors">
-
 				<!-- Smart Change -->
 				<project-info v-if="!moduleTitle" />
 				<module-nav-header v-else :moduleTitle="moduleTitle" />
@@ -25,13 +30,18 @@
 				</div>
 
 				<!-- Smart Change -->
-				<div class="navtoggle" @click="navCollapse = !navCollapse; navCollapseToggle()" >
-					<v-button icon x-small >
-						<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline/>
+				<div
+					class="navtoggle"
+					@click="
+						navCollapse = !navCollapse;
+						navCollapseToggle();
+					"
+				>
+					<v-button icon x-small>
+						<v-icon :name="navCollapse ? 'push_pin' : 'arrow_back_ios'" outline />
 					</v-button>
 				</div>
 				<!-- end -->
-
 			</div>
 		</aside>
 		<div class="content" ref="contentEl">
@@ -57,8 +67,8 @@
 			:class="{ 'is-open': sidebarOpen }"
 			@click="openSidebar"
 		>
-
-			<sidebar-header />  <!-- Smart Change -->
+			<sidebar-header />
+			<!-- Smart Change -->
 
 			<div class="flex-container">
 				<sidebar-detail-group :sidebar-open="sidebarOpen">
@@ -80,14 +90,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, provide, toRefs, computed, onUpdated, nextTick } from '@vue/composition-api';
-import ModuleNavHeader from './components/_smart/module-nav-header/';  // Smart Change
-import SidebarHeader from './components/_smart/sidebar-header/';   // Smart Change
+import { defineComponent, ref, provide, toRefs, computed } from '@vue/composition-api';
+import ModuleNavHeader from './components/_smart/module-nav-header/'; // Smart Change
+import SidebarHeader from './components/_smart/sidebar-header/'; // Smart Change
 import ModuleBar from './components/module-bar/';
 import SidebarDetailGroup from './components/sidebar-detail-group/';
 import HeaderBar from './components/header-bar';
 import ProjectInfo from './components/project-info';
-import SidebarButton from './components/sidebar-button/';
 import NotificationsGroup from './components/notifications-group/';
 import NotificationsPreview from './components/notifications-preview/';
 import NotificationDialogs from './components/notification-dialogs/';
@@ -103,7 +112,6 @@ export default defineComponent({
 		SidebarDetailGroup,
 		HeaderBar,
 		ProjectInfo,
-		SidebarButton,
 		NotificationsGroup,
 		NotificationsPreview,
 		NotificationDialogs,
@@ -136,9 +144,9 @@ export default defineComponent({
 		const notificationsPreviewActive = ref(false);
 
 		const { sidebarOpen } = toRefs(appStore.state);
-		const navCollapse = ref(false);  // Smart Change
-		const navCollapsePreventHover = ref(false);  //Smart Change
-		let navCollapseTimeout: any;  //Smart Change
+		const navCollapse = ref(false); // Smart Change
+		const navCollapsePreventHover = ref(false); //Smart Change
+		let navCollapseTimeout: any; //Smart Change
 
 		const theme = computed(() => {
 			return userStore.state.currentUser?.theme || 'auto';
@@ -146,17 +154,17 @@ export default defineComponent({
 
 		provide('main-element', contentEl);
 
-		router.afterEach(async (to, from) => {
+		router.afterEach(async () => {
 			contentEl.value?.scrollTo({ top: 0 });
 		});
 
 		useTitle(title);
 
 		return {
-			navCollapse,  // Smart Change
-			navCollapsePreventHover,  // Smart Change
-			navCollapseToggle,  // Smart Change
-			navCollapseTimeout,  // SmartChange
+			navCollapse, // Smart Change
+			navCollapsePreventHover, // Smart Change
+			navCollapseToggle, // Smart Change
+			navCollapseTimeout, // SmartChange
 			navOpen,
 			contentEl,
 			theme,
@@ -173,13 +181,14 @@ export default defineComponent({
 		}
 
 		/* Smart Change */
-		function navCollapseToggle () {
+		function navCollapseToggle() {
 			navCollapsePreventHover.value = true;
 			if (navCollapseTimeout) clearTimeout(navCollapseTimeout);
-			navCollapseTimeout = setTimeout (() => { navCollapsePreventHover.value = false; }, 60000);  // Prevent re-opening if mouse pointer is not moved
+			navCollapseTimeout = setTimeout(() => {
+				navCollapsePreventHover.value = false;
+			}, 60000); // Prevent re-opening if mouse pointer is not moved
 		}
 		/* end */
-
 	},
 });
 </script>
@@ -238,7 +247,7 @@ export default defineComponent({
 				--v-list-item-background-color-hover: var(--background-normal-alt);
 				--v-list-item-background-color-active: var(--background-normal-alt);
 
-				height: calc(100% - 64px - 38px);  // Smart Change
+				height: calc(100% - 64px - 38px); // Smart Change
 				overflow-x: hidden;
 				overflow-y: auto;
 			}
@@ -261,7 +270,6 @@ export default defineComponent({
 				}
 			}
 			/* end */
-
 		}
 
 		@include breakpoint(medium) {
@@ -271,8 +279,9 @@ export default defineComponent({
 
 		/* Smart Change */
 		@include breakpoint(medium) {
-
-			&.is-collapse {width: 64px;}
+			&.is-collapse {
+				width: 64px;
+			}
 			.module-bar {
 				z-index: 20;
 			}
@@ -288,7 +297,7 @@ export default defineComponent({
 				.module-nav {
 					transform: none;
 					position: relative;
-					left:0;
+					left: 0;
 				}
 			}
 			&:not(.collapse-prevent-hover).is-collapse:hover {
