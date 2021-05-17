@@ -119,7 +119,7 @@
 		"otplib": "^12.0.1",
 		"pino": "^6.7.0",
 		"pino-colada": "^2.1.0",
-		"qs": "^6.9.4",
+		"qs": "^6.10.1",
 		"rate-limiter-flexible": "^2.1.13",
 		"resolve-cwd": "^3.0.0",
 		"sharp": "^0.27.1",
